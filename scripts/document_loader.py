@@ -23,6 +23,9 @@ class DocumentLoader:
             loader = Docx2txtLoader(self.docx_path)
             document = loader.load()
             self.logger.info("Document loaded successfully.")
-
+            return document
+        
         except Exception as e:
             self.logger.error(f"Error loading document: {str(e)}")
+            return None
+        
