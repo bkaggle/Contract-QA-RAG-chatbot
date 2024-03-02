@@ -1,5 +1,5 @@
 import streamlit as st
-from htmltemplates import css,bot2_template, user3_template
+from frontend.templates import css,bot2_template, user3_template
 from io import BytesIO
 import os
 from dotenv import load_dotenv
