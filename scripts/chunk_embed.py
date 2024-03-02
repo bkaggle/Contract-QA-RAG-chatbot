@@ -39,33 +39,7 @@ class TextProcessor:
 
     @log_function_call
     def generate_embeddings_store(self, texts):
-        
-            
-            # parent_splitter = RecursiveCharacterTextSplitter(
-            # separators=["\n\n", "\n", ".", " "],
-            # chunk_size=600,
-            # chunk_overlap=10
-            # )
-            # child_splitter = RecursiveCharacterTextSplitter(
-            #     separators=["\n\n", "\n", ".", " "],
-            #     chunk_size=1900,
-            #     chunk_overlap=10
-            # )
-
-            # vectorstore = Chroma(collection_name="contract", embedding_function=embeddings())
-            # store = InMemoryStore()
-
-            # parent_document_retriever = ParentDocumentRetriever(
-            #     vectorstore=vectorstore,
-            #     docstore=store,
-            #     child_splitter=child_splitter,
-            #     parent_splitter=parent_splitter,
-            #     search_kwargs={"k": 10},
-                
-            # )
-            # parent_document_retriever.add_documents(texts)
-            
-            # return parent_document_retriever
+           
         try:
             embeddings = OpenAIEmbeddings()
             store = Chroma.from_documents(texts, embeddings, collection_name="contract")

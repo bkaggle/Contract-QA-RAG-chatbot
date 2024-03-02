@@ -1,0 +1,54 @@
+.title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #005F75;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.file-uploader-container {
+    width: 50%;
+    margin: auto;
+}
+
+.file-uploader input[type="file"] {
+    padding: 10px;
+    border: 2px solid #005F75;
+    border-radius: 5px;
+    background-color: #E8F0F2;
+    width: 100%;
+}
+
+.user-input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #005F75;
+    border-radius: 5px;
+    background-color: #E8F0F2;
+    margin-top: 20px;
+}
+
+.send-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #005F75;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.message-container {
+    margin-top: 20px;
+}
+
+.user-message {
+    text-align: right;
+    color: #005F75;
+}
+
+.bot-message {
+    text-align: left;
+    color: #005F75;
+}
