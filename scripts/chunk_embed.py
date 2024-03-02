@@ -46,7 +46,7 @@ class TextProcessor:
             llm = OpenAI(temperature=0)
             retriever=store.add_documents()
             #add_documents(docs)
-            return RetrievalQA.from_chain_type(llm, retriever=retriever)
+            return retriever,RetrievalQA.from_chain_type(llm, retriever=retriever)
         except Exception as e:
             logger.error(f"Error occurred while generating embeddings: {str(e)}")
             return None
