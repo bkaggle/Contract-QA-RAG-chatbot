@@ -1,10 +1,14 @@
 import logging
 from functools import wraps
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.llms import OpenAI
-from langchain.vectorstores import Chroma
+from langchain_community.embeddings import OpenAIEmbeddings
+from langchain_community.llms import OpenAI
+from langchain_community.vectorstores import Chroma
 from langchain.chains import RetrievalQA
+from langchain.storage import InMemoryStore
+from langchain.retrievers import ParentDocumentRetriever
+#from models import RagResponse
+#from document_loader import DocumentLoader
 
 # Setup logging configuration
 logging.basicConfig(level=logging.INFO)
@@ -21,6 +25,7 @@ def log_function_call(func):
 class TextProcessor:
     def __init__(self, documents):
         self.documents = documents
+        
 
     @log_function_call
     def chunk_text(self):
@@ -33,21 +38,43 @@ class TextProcessor:
             return []
 
     @log_function_call
-    def generate_embeddings(self, texts):
+    def generate_embeddings_store(self, texts):
+        
+            
+            # parent_splitter = RecursiveCharacterTextSplitter(
+            # separators=["\n\n", "\n", ".", " "],
+            # chunk_size=600,
+            # chunk_overlap=10
+            # )
+            # child_splitter = RecursiveCharacterTextSplitter(
+            #     separators=["\n\n", "\n", ".", " "],
+            #     chunk_size=1900,
+            #     chunk_overlap=10
+            # )
+
+            # vectorstore = Chroma(collection_name="contract", embedding_function=embeddings())
+            # store = InMemoryStore()
+
+            # parent_document_retriever = ParentDocumentRetriever(
+            #     vectorstore=vectorstore,
+            #     docstore=store,
+            #     child_splitter=child_splitter,
+            #     parent_splitter=parent_splitter,
+            #     search_kwargs={"k": 10},
+                
+            # )
+            # parent_document_retriever.add_documents(texts)
+            
+            # return parent_document_retriever
         try:
             embeddings = OpenAIEmbeddings()
             store = Chroma.from_documents(texts, embeddings, collection_name="contract")
-            return store
+            llm = OpenAI(temperature=0)
+            retriever=store.add_documents()
+            #add_documents(docs)
+            return RetrievalQA.from_chain_type(llm, retriever=retriever)
         except Exception as e:
             logger.error(f"Error occurred while generating embeddings: {str(e)}")
             return None
 
-    @log_function_call
-    def retrieve_response(self, store):
-        try:
-            llm = OpenAI(temperature=0)
-            chain = RetrievalQA.from_chain_type(llm, retriever=store.as_retriever())
-            return chain
-        except Exception as e:
-            logger.error(f"Error occurred while retrieving response: {str(e)}")
-            return None
+   

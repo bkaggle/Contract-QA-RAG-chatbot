@@ -1,6 +1,6 @@
-openai==0.28.0
+openai==0.28.1
 llama_index
-langchain
+langchain==0.0.316
 python-dotenv
 chromadb
 datasets
